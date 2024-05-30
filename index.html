@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apple Music Authorization</title>
+  <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
+  <script>
+    document.addEventListener('musickitloaded', function() {
+      function configureMusicKit() {
+        const developerToken = prompt('Please enter your developer token:');
+        MusicKit.configure({
+          developerToken: developerToken,
+          app: {
+            name: 'Your App Name',
+            build: '1.0'
+          }
+        });
+
+        const music = MusicKit.getInstance();
+
+        function authorize() {
+          music.authorize().then(function(musicUserToken) {
+            console.log('Authorized, user token:', musicUserToken);
+            alert('Authorized! Check the console for the user token.');
+          }).catch(function(error) {
+            console.error('Authorization failed:', error);
+          });
+        }
+
+        document.getElementById('authorize-button').addEventListener('click', authorize);
+      }
+
+      configureMusicKit();
+    });
+  </script>
+</head>
+<body>
+  <button id="authorize-button">Authorize Apple Music</button>
+</body>
+</html>
