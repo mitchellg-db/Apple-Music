@@ -5,8 +5,12 @@
   <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
   <script>
     document.addEventListener('musickitloaded', function() {
+      console.log('MusicKit loaded');
+
       function configureMusicKit() {
         const developerToken = prompt('Please enter your developer token:');
+        console.log('Developer token:', developerToken);
+
         MusicKit.configure({
           developerToken: developerToken,
           app: {
@@ -16,6 +20,7 @@
         });
 
         const music = MusicKit.getInstance();
+        console.log('MusicKit instance:', music);
 
         function authorize() {
           music.authorize().then(function(musicUserToken) {
