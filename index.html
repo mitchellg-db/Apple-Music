@@ -8,13 +8,15 @@
       console.log('MusicKit loaded - Version 1.2');
 
       function configureMusicKit() {
+        // Prompt user to enter the developer token
         const developerToken = prompt('Please enter your developer token:');
         console.log('Developer token entered:', developerToken);
 
+        // Configure MusicKit with the developer token
         MusicKit.configure({
           developerToken: developerToken,
           app: {
-            name: 'Your App Name',
+            name: 'media.mgdb',  // Replace 'Your App Name' with the actual name of your app
             build: '1.0'
           }
         });
