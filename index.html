@@ -4,44 +4,48 @@
   <title>Apple Music Authorization</title>
   <script src="https://js-cdn.music.apple.com/musickit/v1/musickit.js"></script>
   <script>
-    document.addEventListener('musickitloaded', function() {
-      console.log('MusicKit loaded - Version 1.2');
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded and parsed - Version 1.3');
 
-      function configureMusicKit() {
-        // Prompt user to enter the developer token
-        const developerToken = prompt('Please enter your developer token:');
-        console.log('Developer token entered:', developerToken);
+      document.addEventListener('musickitloaded', function() {
+        console.log('MusicKit loaded');
 
-        // Configure MusicKit with the developer token
-        MusicKit.configure({
-          developerToken: developerToken,
-          app: {
-            name: 'media.mgdb',  // Replace 'Your App Name' with the actual name of your app
-            build: '1.0'
-          }
-        });
+        function configureMusicKit() {
+          // Prompt user to enter the developer token
+          const developerToken = prompt('Please enter your developer token:');
+          console.log('Developer token entered:', developerToken);
 
-        const music = MusicKit.getInstance();
-        console.log('MusicKit instance configured with developer token:', music.developerToken);
-
-        function authorize() {
-          music.authorize().then(function(musicUserToken) {
-            console.log('Authorized, user token:', musicUserToken);
-            alert('Authorized! Check the console for the user token.');
-          }).catch(function(error) {
-            console.error('Authorization failed:', error);
+          // Configure MusicKit with the developer token
+          MusicKit.configure({
+            developerToken: developerToken,
+            app: {
+              name: 'Your App Name',  // Replace 'Your App Name' with the actual name of your app
+              build: '1.0'
+            }
           });
+
+          const music = MusicKit.getInstance();
+          console.log('MusicKit instance configured with developer token:', music.developerToken);
+
+          function authorize() {
+            music.authorize().then(function(musicUserToken) {
+              console.log('Authorized, user token:', musicUserToken);
+              alert('Authorized! Check the console for the user token.');
+            }).catch(function(error) {
+              console.error('Authorization failed:', error);
+            });
+          }
+
+          document.getElementById('authorize-button').addEventListener('click', authorize);
         }
 
-        document.getElementById('authorize-button').addEventListener('click', authorize);
-      }
-
-      configureMusicKit();
+        configureMusicKit();
+      });
     });
   </script>
 </head>
 <body>
-  <h1>Apple Music Authorization - Version 1.2</h1>
+  <h1>Apple Music Authorization - Version 1.3</h1>
   <button id="authorize-button">Authorize Apple Music</button>
 </body>
 </html>
